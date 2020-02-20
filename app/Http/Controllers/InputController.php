@@ -161,7 +161,8 @@ class InputController extends Controller
             }
         );
 
-        $image = $crawler->filter('p noscript img')->first()->attr('src');
+        // $image = $crawler->filter('p noscript img')->first()->attr('src');
+        $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
         $title = $crawler->filter('h1.title')->first()->text();
 
         $plot = $crawler->filter('.entry p')->eq(5)->text();
