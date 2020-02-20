@@ -40,9 +40,10 @@ class InputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(int $page = 1)
     {
-        $crawler = Goutte::request('GET', 'https://smallencode.com/category/k-drama/page/1');
+        $crawler = Goutte::request('GET', "https://smallencode.com/category/k-drama/page/{$page}");
+
         $resources = $crawler->filter('.post')->each(
             function ($node) {
                 $title = $node->filter('.title a')->text();
@@ -73,7 +74,15 @@ class InputController extends Controller
             }
         );
 
-        return view('welcome', compact('resources'));
+        $first = 1;
+        $last = abs(filter_var($crawler->filter('.last')->first()->attr('href'), FILTER_SANITIZE_NUMBER_INT));
+        
+        $prev = $page == $first ? null : '/page/' . (string) ($page - 1);
+        $next = $page == $last ? null : '/page/' . (string) ($page + 1);
+
+        // dd($last, $crawler->filter('.last')->first()->attr('href'));
+
+        return view('welcome', compact('resources', 'first', 'last', 'page', 'prev', 'next'));
     }
 
     /**

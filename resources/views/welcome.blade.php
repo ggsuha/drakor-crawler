@@ -70,5 +70,14 @@
         <img src="{{ $resource['img'] }}">
         <a href="{{ $resource['url'] }}">Link</a>
         @endforeach
+        
+        <div>
+            <a href="{{ url($page == 1 ? '/#' : '/') }}"><<</a>
+        <a href="{{ url($prev ?? '#') }}"><</a>
+        <a>{{ $page }}</a>
+        <a href="{{ url($next ?? '/#') }}">></a>
+        <a href="{{ url('/page/' . $last) }}">>></a>
+        </div>
+        
     </body>
 </html>

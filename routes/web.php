@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'InputController@index');
+Route::get('/page/{page}', 'InputController@index');
 Route::get('/{slug}', 'InputController@tes');
 
 Route::get('post', 'UserController@store')->name('post');
