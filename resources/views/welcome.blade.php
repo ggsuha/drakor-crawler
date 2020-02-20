@@ -97,13 +97,6 @@
                                 {{-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> --}}
                             </ul>
                         </div>
-                        <div class="center-button">
-                            
-                            
-                            
-                            
-                            
-                        </div>
                     </div>
                 </div>
             </section>
