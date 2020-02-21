@@ -62,18 +62,18 @@ class InputController extends Controller
             }
         );
 
-        $crawler2 = Goutte::request('GET', 'https://kdramamusic.com/');
-        $resources2 = $crawler2->filter('.pt-cv-ifield')->each(
-            function ($node) {
-                $title = $node->filter('.pt-cv-title a')->text();
-                $url = str_replace('https://kdramamusic.com/', '', $node->filter('.pt-cv-title a')->attr('href'));
-                return [
-                    'title' => $title, 
-                    'url' => $url,
-                    'img' => 'https:' . $node->filter('.pt-cv-ifield a noscript img')->attr('src'),
-                ];
-            }
-        );
+        // $crawler2 = Goutte::request('GET', 'https://kdramamusic.com/');
+        // $resources2 = $crawler2->filter('.pt-cv-ifield')->each(
+        //     function ($node) {
+        //         $title = $node->filter('.pt-cv-title a')->text();
+        //         $url = str_replace('https://kdramamusic.com/', '', $node->filter('.pt-cv-title a')->attr('href'));
+        //         return [
+        //             'title' => $title, 
+        //             'url' => $url,
+        //             'img' => 'https:' . $node->filter('.pt-cv-ifield a noscript img')->attr('src'),
+        //         ];
+        //     }
+        // );
 
         $first = 1;
         $last = abs(filter_var($crawler->filter('.last')->first()->attr('href'), FILTER_SANITIZE_NUMBER_INT));
