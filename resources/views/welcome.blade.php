@@ -76,7 +76,7 @@
                             <div class="col-lg-2 col-md-6">
                                 <div class="news-post standard-post left-align">
                                     <div class="image-holder">
-                                        <a href="{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a>
+                                        <a style="max-width: 300px; width: 100%;" href="{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a>
                                     </div>
                                     {{-- <a class="text-link" href="#">Food</a> --}}
                                     <h2>
@@ -92,7 +92,7 @@
                             <ul class="pagination-list">
                                 {{-- <li><a href="{{ url($page == 1 ? '/#' : '/') }}"><<</a></li> --}}
                                 <li><a href="{{ url($prev ?? '#') }}"><</a></li>
-                                <li><a class="active" >2</a></li>
+                                <li><a class="active" >{{ $page }}</a></li>
                                 <li><a href="{{ url($next ?? '/#') }}">></a></li>
                                 {{-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> --}}
                             </ul>

@@ -52,7 +52,7 @@ class InputController extends Controller
                         $title;
                 $url = str_replace('https://smallencode.com', '', $node->filter('.title a')->attr('href'));
                 $img = $node->filter('.thumb a noscript img')->attr('src');
-                $img = str_replace('-130x130', '', $img);
+                // $img = str_replace('-130x130', '', $img);
 
                 return [
                     'title' => $title, 
