@@ -76,7 +76,7 @@
                             <div class="col-lg-2 col-md-6">
                                 <div class="news-post standard-post left-align">
                                     <div class="image-holder">
-                                        <a style="max-width: 300px; width: 100%;" href="{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a>
+                                        <center><a href="{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a></center>
                                     </div>
                                     {{-- <a class="text-link" href="#">Food</a> --}}
                                     <h2>
