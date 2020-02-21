@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="{{ asset('css/fonts/cssb2c8.css?family=Roboto:300,400,400i,500,500i,700,700i,900&amp;display=swap') }}" rel="stylesheet">
         
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/mite-assets.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/mite-assets.min.css?v=0.0.0') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css?v=0.0.0') }}">
 
     </head>
     <body>
@@ -24,7 +24,7 @@
                 <div class="logo-place">
                     <div class="container">
                         <a class="navbar-brand" href="index-2.html">
-                            <img src="{{ asset('images/logo.png') }}" alt="">
+                            <img src="{{ asset('images/logo.png?v=0.0.0') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -134,13 +134,13 @@
         <!-- End Container -->
 
         <div class="preloader">
-            <img alt="" src="{{ asset('images/loader.gif') }}">
+            <img alt="" src="{{ asset('images/loader.gif?v=0.0.0') }}">
         </div>
         
-        <script src="{{ asset('js/mite-plugins.min.js') }}"></script>
-        <script src="{{ asset('js/popper.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/script.js') }}"></script>
+        <script src="{{ asset('js/mite-plugins.min.js?v=0.0.0') }}"></script>
+        <script src="{{ asset('js/popper.js?v=0.0.0') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js?v=0.0.0') }}"></script>
+        <script src="{{ asset('js/script.js?v=0.0.0') }}"></script>
         
     </body>
 </html>
