@@ -1,62 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>@yield('title')</title>
 
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <meta charset="utf-8">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        {{-- <link href="{{ asset('css/fonts/cssb2c8.css?family=Roboto:300,400,400i,500,500i,700,700i,900&amp;display=swap') }}" rel="stylesheet"> --}}
+        
+        {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/mite-assets.min.css') }}"> --}}
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .code {
-                border-right: 2px solid;
-                font-size: 26px;
-                padding: 0 15px 0 15px;
-                text-align: center;
-            }
-
-            .message {
-                font-size: 18px;
-                text-align: center;
-            }
-        </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            <div class="code">
-                @yield('code')
-            </div>
 
-            <div class="message" style="padding: 10px;">
-                @yield('message')
-            </div>
+        <!-- Container -->
+        <div id="container">
+            <!-- error section 
+                ================================================== -->
+            <section class="error-section">
+                <div class="container">
+                    <div class="error-box">
+                        <h1>@yield('code')</h1>
+                        <h2>@yield('message')</h2>
+                        <p>@yield('detail')</p>
+                        <a class="button-one" href="{{ url('/') }}">Go To HomePage</a>
+                    </div>
+                </div>
+            </section>
+            <!-- End error section -->
         </div>
+
+        <div class="preloader">
+            <img alt="" src="{{ asset('images/loader.gif') }}">
+        </div>
+        
+        <script src="{{ asset('js/mite-plugins.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/popper.js') }}"></script> --}}
+        {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
+        <script src="{{ asset('js/script.js') }}"></script>
+        
     </body>
 </html>

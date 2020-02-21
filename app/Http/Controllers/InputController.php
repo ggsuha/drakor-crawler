@@ -104,9 +104,13 @@ class InputController extends Controller
 
         $kordrama = $slug . '-subtitle-indonesia';
 
-        $crawler = Goutte::request('GET', 'https://smallencode.com/' . request()->path());
-// dd($crawler, $crawler->filter('error404')->count());
-        if (!$crawler->filter('error404')->count()) {
+        try {
+            $crawler = Goutte::request('GET', 'https://smallencode.com/' . request()->path());
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            abort(500);
+        }
+
+        if ($crawler->filter('.error404')->count()) {
             abort(404);
         }
         $crawler2 = Goutte::request('GET', 'https://kordramas.com/' . $kordrama);
