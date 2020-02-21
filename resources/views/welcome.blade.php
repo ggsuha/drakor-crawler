@@ -97,6 +97,9 @@
                                 {{-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> --}}
                             </ul>
                         </div>
+                        <div class="advertise-box">
+                            <center><iframe data-aa="1330831" src="//acceptable.a-ads.com/1330831" scrolling="no" style="border:0px; padding:0; width:100%; height:100%; overflow:hidden" allowtransparency="true"></iframe></center>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -115,7 +118,13 @@
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                     </ul>
+                    <!-- BEGIN: Powered by Supercounters.com -->
 
+
+                </div>
+                <div style="margin-top: 20px;">
+                    <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script><script type="text/javascript">sc_online_i(1570298,"ffffff","e61c1c");</script><br><noscript><a href="https://www.supercounters.com/">free online counter</a></noscript>
+                    </center>
                 </div>
 
             </footer>

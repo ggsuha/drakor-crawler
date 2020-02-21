@@ -137,7 +137,7 @@
                     </div>
 
                     <div class="advertise-box">
-                        <a href="#"><img src="upload/banners/ban3.jpg" alt=""></a>
+                        <center><iframe data-aa="1330831" src="//acceptable.a-ads.com/1330831" scrolling="no" style="border:0px; padding:0; width:100%; height:100%; overflow:hidden" allowtransparency="true"></iframe></center>
                     </div>
                 </div>
             </div>
