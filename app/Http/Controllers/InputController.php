@@ -236,7 +236,7 @@ class InputController extends Controller
         try {
             $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug);
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
-            dump($e);
+            redirect('/wkwkwk');
         }
 
         if (!$ost->filter('.entry-title')->count()) {
