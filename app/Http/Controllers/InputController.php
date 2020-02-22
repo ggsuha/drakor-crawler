@@ -251,7 +251,7 @@ class InputController extends Controller
             function ($node) {
                     return $node->text();
                 }
-        );dump("f");
+        );
         $spans = array_unique($spans);
 
         $links = $ost->filter('.inner-post-entry p span a')->each(
@@ -260,8 +260,8 @@ class InputController extends Controller
                 }
         );
 
-        array_pop($spans);dump("i");
-        array_pop($spans);dump("j");
+        array_pop($spans);
+        array_pop($spans);
         // $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
         // $title = strpos($title, " Episo") ? 
         //         substr($title, 0, strpos($title, " Episo")) : 
