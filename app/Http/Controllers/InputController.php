@@ -241,10 +241,9 @@ class InputController extends Controller
 
         if (!$ost->filter('.entry-title')->count()) {
             abort(404);
-        } else {
-            $title = $ost->filter('.entry-title')->first()->text();
         }
 
+        $title = $ost->filter('.entry-title')->first()->text();
 
         $image = $ost->filter('.inner-post-entry p noscript img')->first()->attr('src');
 
