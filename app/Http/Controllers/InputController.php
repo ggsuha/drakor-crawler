@@ -245,7 +245,7 @@ dump("b");
 dump("c");
         $title = $ost->filter('.entry-title')->first()->text();
 dump("d");
-        $image = $ost->filter('.inner-post-entry p img')->first()->attr('src');
+        $image = $ost->filter('.inner-post-entry p img')->first()->attr('data-lazy-src');
 dump("e");
         $spans = $ost->filter('.inner-post-entry p span')->each(
             function ($node) {
