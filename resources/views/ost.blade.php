@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" class="no-js">
     <head>
         <title>Air Keruh</title>
@@ -24,7 +23,7 @@
                 <div class="logo-place">
                     <div class="container">
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            <img src="{{ asset('images/logo.png?v=20200221') }}" alt="">
+                            <img src="{{ asset('images/logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -50,12 +49,12 @@
                                 <input type="search" placeholder="Search:"/>
                             </form>
                                 </li>
-                                {{-- <li>
+                                <!-- <li>
                                     <a href="{{ url('/') }}">K-Drama</a>
-                                </li> --}}
-{{--                                 <li>
+                                </li>
+                                <li>
                                     <a href="index-2.html">Drama OST</a>
-                                </li> --}}
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -63,49 +62,63 @@
             </header>
             <!-- End Header -->
 
-            <!-- fresh-section2 
-                ================================================== -->
-            <section class="fresh-section2">
-                <div class="container">
-                    <div class="title-section text-center">
-                        <h1>Korean Dramas</h1>
+<!-- blog section 
+            ================================================== -->
+        <section class="blog-section">
+            <div class="container">
+                <div class="single-post no-sidebar">
+                    <div class="title-single-post">
+                        <!-- <a class="text-link" href="#">Lifestyle</a> -->
+                        <h1>{{ $title }}</h1>
                     </div>
-                    <div class="fresh-box">
-                        <div class="row">
-                        @foreach($resources as $resource)
-                            <div class="col-lg-2 col-md-6">
-                                <div class="news-post standard-post left-align">
-                                    <div class="image-holder">
-                                        <center><a href="{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a></center>
-                                    </div>
-                                    {{-- <a class="text-link" href="#">Food</a> --}}
-                                    <h2>
-                                        <center>
-                                            <a href="{{ $resource['url'] }}">{{ $resource['title'] }}</a>    
-                                        </center>
-                                    </h2>
-                                </div>
-                            </div>
-                        @endforeach
+                    <div class="single-post-content">
+                        <center><img src="{{ $image }}" style="max-width: 300px;" alt=""></center>
+                        <div class="post-content">
+                            <div class="post-content-text">
+                                <br>
+                                <center>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>
+                                                    <strong>Source: </strong>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    <strong><a href="https://kdramamusic.com">Kdramaost.com</a></strong>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </center>
+                                <center>
+                                @foreach($spans as $text)
+                                            <span>{{ $text }}</span><br>
+                                @endforeach
+
+                                <br><h4>Download Album / Individual Song</h4>
+                                @foreach($links as $link)
+                                    @foreach($link as $key => $url)
+                                    <a href="{{$url}}">{{$key}}</a><br>
+                                    @endforeach
+                                @endforeach
+                                </center>
+                            </div>  
                         </div>
-                        <div class="pagination-box">
-                            <ul class="pagination-list">
-                                {{-- <li><a href="{{ url($page == 1 ? '/#' : '/') }}"><<</a></li> --}}
-                                <li><a href="{{ url($prev ?? '#') }}"><</a></li>
-                                <li><a class="active" >{{ $page }}</a></li>
-                                <li><a href="{{ url($next ?? '/#') }}">></a></li>
-                                {{-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> --}}
-                            </ul>
-                        </div>
-                        <div class="advertise-box">
-                            <center><iframe data-aa="1330831" src="//acceptable.a-ads.com/1330831" scrolling="no" style="border:0px; padding:0; width:100%; height:100%; overflow:hidden" allowtransparency="true"></iframe></center>
-                        </div>
+                    </div>
+
+                    <div class="advertise-box">
+                        <center><iframe data-aa="1330831" src="//acceptable.a-ads.com/1330831" scrolling="no" style="border:0px; padding:0; width:100%; height:100%; overflow:hidden" allowtransparency="true"></iframe></center>
                     </div>
                 </div>
-            </section>
-            <!-- End fresh section -->
+            </div>
+        </section>
+        <!-- End blog section -->
 
-            <!-- footer 
+ <!-- footer 
                 ================================================== -->
             <footer class="dark-style">
                 <div class="container">
@@ -118,13 +131,7 @@
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                     </ul>
-                    <!-- BEGIN: Powered by Supercounters.com -->
 
-
-                </div>
-                <div style="margin-top: 20px;">
-                    <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script><script type="text/javascript">sc_online_i(1570298,"ffffff","e61c1c");</script><br><noscript><a href="https://www.supercounters.com/">free online counter</a></noscript>
-                    </center>
                 </div>
 
             </footer>

@@ -1953,7 +1953,8 @@ section.about-section {
       font-size: 24px;
       margin-bottom: 4px; }
   .single-post.no-sidebar .single-post-content .post-content .post-content-text {
-    /*padding-right: 70px;*/ }
+    /*padding-right: 70px;*/
+    width: 100%; }
     .single-post.no-sidebar .single-post-content .post-content .post-content-text .image-alt-box .image-holder img {
       width: 360px; }
 

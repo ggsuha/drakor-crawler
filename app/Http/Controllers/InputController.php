@@ -35,6 +35,10 @@ class InputController extends Controller
         'dr-romantic-2' => 'romantic-doctor-teacher-kim-2',
     ];
 
+    const OST_LIST = [
+        'dr-romantic-2' => 'romantic-doctor',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -100,6 +104,8 @@ class InputController extends Controller
     {
         $slug = str_replace('download-drama-korea-','', request()->path());
 
+        $ostSlug = self::OST_LIST[$slug] ?? $slug;;
+
         $slug = self::DIFF_DRAMAS[$slug] ?? $slug;
 
         $kordrama = $slug . '-subtitle-indonesia';
@@ -114,6 +120,9 @@ class InputController extends Controller
             abort(404);
         }
         $crawler2 = Goutte::request('GET', 'https://kordramas.com/' . $kordrama);
+        $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug . '-ost');
+
+        $ostExist = $ost->filter('.entry-title')->count() ?? null;
 
         $kor = $crawler2->filter('.entry-content p')->each(
             function ($node) {
@@ -181,6 +190,9 @@ class InputController extends Controller
         // $image = $crawler->filter('p noscript img')->first()->attr('src');
         $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
         $title = $crawler->filter('h1.title')->first()->text();
+        $title = strpos($title, " Episo") ? 
+                substr($title, 0, strpos($title, " Episo")) : 
+                $title;
 
         $plot = $crawler->filter('.entry p')->eq(5)->text();
         $plot = $plot == "\u{00a0}" ? $crawler->filter('.entry p')->eq(6)->text() : $plot;
@@ -210,7 +222,55 @@ class InputController extends Controller
         $list = array_combine($episodes, $links);
         // dd($list, $links);
 
-        return view('post', compact('title', 'list', 'details', 'image', 'plot'));
+        return view('post', compact('title', 'list', 'details', 'image', 'plot', 'ostExist', 'slug', 'ostSlug'));
+    }
+
+    public function ost()
+    {
+        $slug = str_replace('ost/','', request()->path());
+
+        $slug = self::OST_LIST[$slug] ?? $slug;
+
+        $ostSlug = $slug . '-ost';
+
+        try {
+            $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug);
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            abort(500);
+        }
+
+        if (!$ost->filter('.entry-title')->count()) {
+            abort(404);
+        } else {
+            $title = $ost->filter('.entry-title')->first()->text();
+        }
+
+
+        $image = $ost->filter('.inner-post-entry p noscript img')->first()->attr('src');
+
+        $spans = $ost->filter('.inner-post-entry p span')->each(
+            function ($node) {
+                    return $node->text();
+                }
+        );
+        $spans = array_unique($spans);
+
+        $links = $ost->filter('.inner-post-entry p span a')->each(
+            function ($node) {
+                    return [$node->text() => $node->attr('href')];
+                }
+        );
+
+        array_pop($spans);
+        array_pop($spans);
+        // $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
+        // $title = strpos($title, " Episo") ? 
+        //         substr($title, 0, strpos($title, " Episo")) : 
+        //         $title;
+
+        // dd($list, $links);
+
+        return view('ost', compact('title', 'image', 'slug', 'spans', 'links'));
     }
 
     /**

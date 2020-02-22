@@ -15,6 +15,7 @@
 Route::get('/', 'InputController@index');
 Route::get('/page/{page}', 'InputController@index');
 Route::get('/{slug}', 'InputController@tes');
+Route::get('/ost/{slug}', 'InputController@ost');
 
 Route::get('post', 'UserController@store')->name('post');
 Route::post('ckeditor/image_upload', 'InputController@upload')->name('upload');
