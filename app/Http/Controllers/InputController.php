@@ -232,34 +232,34 @@ class InputController extends Controller
         $slug = self::OST_LIST[$slug] ?? $slug;
 
         $ostSlug = $slug . '-ost';
-dump("a");
+
         try {
             $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug);
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             abort(404);
         }
-dump("b");
+
         if (!$ost->filter('.entry-title')->count()) {
             abort(404);
         }
-dump("c");
+
         $title = $ost->filter('.entry-title')->first()->text();
-dump("d");
+
         $image = $ost->filter('.inner-post-entry p img')->first()->attr('data-lazy-src');
-dump("e");
+
         $spans = $ost->filter('.inner-post-entry p span')->each(
             function ($node) {
                     return $node->text();
                 }
         );dump("f");
         $spans = array_unique($spans);
-dump("g");
+
         $links = $ost->filter('.inner-post-entry p span a')->each(
             function ($node) {
                     return [$node->text() => $node->attr('href')];
                 }
         );
-dump("h");
+
         array_pop($spans);dump("i");
         array_pop($spans);dump("j");
         // $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
