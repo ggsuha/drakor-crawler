@@ -231,10 +231,10 @@ class InputController extends Controller
 
         $slug = self::OST_LIST[$slug] ?? $slug;
 
-        // $ostSlug = $slug . '-ost';
+        $ostSlug = $slug . '-ost';
 
         try {
-            $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $slug);
+            $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug);
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             abort(500);
         }
