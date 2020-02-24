@@ -15,10 +15,10 @@
 Route::get('/', function() {
     return redirect('/kdrama');
 });
-Route::get('/kdrama', 'InputController@index');
-Route::get('/kdrama/page/{page}', 'InputController@index');
-Route::get('/kdrama/{slug}', 'InputController@tes');
+Route::get('/kdrama', 'InputController@kdramas');
+Route::get('/kdrama/page/{page}', 'InputController@kdramas');
+Route::get('/kdrama/{slug}', 'InputController@kdrama');
 Route::get('/ost/{slug}', 'InputController@ost');
-Route::get('/ost/', 'InputController@ostIndex');
-Route::get('/ost/page/{page}', 'InputController@ostindex');
+Route::get('/ost/', 'InputController@osts');
+Route::get('/ost/page/{page}', 'InputController@osts');
 

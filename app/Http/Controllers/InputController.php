@@ -8,56 +8,50 @@ use Image;
 
 class InputController extends Controller
 {
-
     const SERVERS = [
-        'MirrorAce' => 'MR',
-        'Tusfiles' => 'TF',
-        'Userscloud' => 'UC',
-        'MEGA' => 'MG',
-        'Letsupload' => 'LU',
-        'MediaFire' => 'MF',
-        'SolidFiles' => 'SF',
-        'Google Drive' => 'GD',
-        'Mirror' => 'MO',
-        'MegaUp' => 'MU',
-        'BayFiles' => 'BF',
-        '1fichier' => '1fic',
-        'UppiT' => 'UP',
-        'Openload:filesim' => 'Oload',
-        'Racaty' => 'RC',
-        'SolidFiles:Uptocloud' => 'SFU',
-        'Zippyshare' => 'ZS',
-        'Uptobox' => 'UTB',
+        'MirrorAce'             => 'MR',
+        'Tusfiles'              => 'TF',
+        'Userscloud'            => 'UC',
+        'MEGA'                  => 'MG',
+        'Letsupload'            => 'LU',
+        'MediaFire'             => 'MF',
+        'SolidFiles'            => 'SF',
+        'Google Drive'          => 'GD',
+        'Mirror'                => 'MO',
+        'MegaUp'                => 'MU',
+        'BayFiles'              => 'BF',
+        '1fichier'              => '1fic',
+        'UppiT'                 => 'UP',
+        'Openload:filesim'      => 'Oload',
+        'Racaty'                => 'RC',
+        'SolidFiles:Uptocloud'  => 'SFU',
+        'Zippyshare'            => 'ZS',
+        'Uptobox'               => 'UTB',
     ];
 
-    const DIFF_DRAMAS = [
-        'xx' => 'web-drama-xx-blue-moon',
-        'beautiful-love-wonderful-life' => 'love-is-beautiful-life-is-wonderful',
-        'dr-romantic-2' => 'romantic-doctor-teacher-kim-2',
+    const DRAMA_LIST = [
+        'xx'                                => 'web-drama-xx-blue-moon',
+        'beautiful-love-wonderful-life'     => 'love-is-beautiful-life-is-wonderful',
+        'dr-romantic-2'                     => 'romantic-doctor-teacher-kim-2',
     ];
 
     const OST_LIST = [
         'dr-romantic-2' => 'romantic-doctor',
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(int $page = 1)
+    public function kdramas(int $page = 1)
     {
         $crawler = Goutte::request('GET', "https://smallencode.com/category/k-drama/page/{$page}");
 
         $resources = $crawler->filter('.post')->each(
             function ($node) {
-                $title = $node->filter('.title a')->text();
-                $title = strpos($title, " Episo") ? 
-                        substr($title, 0, strpos($title, " Episo")) : 
-                        $title;
-                $url = str_replace('https://smallencode.com', '', $node->filter('.title a')->attr('href'));
-                $img = $node->filter('.thumb a noscript img')->attr('src');
-                // $img = str_replace('-130x130', '', $img);
+                $title  = $node->filter('.title a')->text();
+                $title  = strpos($title, " Episo") ? 
+                            substr($title, 0, strpos($title, " Episo")) : 
+                            $title;
+                $url    = str_replace('https://smallencode.com', '', $node
+                            ->filter('.title a')->attr('href'));
+                $img    = $node->filter('.thumb a noscript img')->attr('src');
 
                 return [
                     'title' => $title, 
@@ -67,39 +61,22 @@ class InputController extends Controller
             }
         );
 
-        // $crawler2 = Goutte::request('GET', 'https://kdramamusic.com/');
-        // $resources2 = $crawler2->filter('.pt-cv-ifield')->each(
-        //     function ($node) {
-        //         $title = $node->filter('.pt-cv-title a')->text();
-        //         $url = str_replace('https://kdramamusic.com/', '', $node->filter('.pt-cv-title a')->attr('href'));
-        //         return [
-        //             'title' => $title, 
-        //             'url' => $url,
-        //             'img' => 'https:' . $node->filter('.pt-cv-ifield a noscript img')->attr('src'),
-        //         ];
-        //     }
-        // );
-
-        $first = 1;
-        $last = abs(filter_var($crawler->filter('.last')->first()->attr('href'), FILTER_SANITIZE_NUMBER_INT));
+        $first  = 1;
+        $last   = abs(filter_var($crawler->filter('.last')->first()->attr('href'), FILTER_SANITIZE_NUMBER_INT));
 
         $prev = $page == $first ? null : 'kdrama/page/' . (string) ($page - 1);
         $next = $page == $last ? null : 'kdrama/page/' . (string) ($page + 1);
 
-        // dd($last, $crawler->filter('.last')->first()->attr('href'));
-
-        return view('welcome', compact('resources', 'first', 'last', 'page', 'prev', 'next'));
+        return view('kdramas', compact('resources', 'first', 'last', 'page', 'prev', 'next'));
     }
 
-    public function tes()
+    public function kdrama()
     {
         $slug = str_replace('kdrama/download-drama-korea-','', request()->path());
 
-        $ostSlug = self::OST_LIST[$slug] ?? $slug;;
-
-        $slug = self::DIFF_DRAMAS[$slug] ?? $slug;
-
-        $kordrama = $slug . '-subtitle-indonesia';
+        $ostSlug    = self::OST_LIST[$slug] ?? $slug;
+        $slug       = self::DRAMA_LIST[$slug] ?? $slug;
+        $kordrama   = $slug . '-subtitle-indonesia';
 
         try {
             $crawler = Goutte::request('GET', 'https://smallencode.com/' . request()->path());
@@ -110,6 +87,7 @@ class InputController extends Controller
         if ($crawler->filter('.error404')->count()) {
             abort(404);
         }
+
         $crawler2 = Goutte::request('GET', 'https://kordramas.com/' . $kordrama);
         $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug . '-ost');
 
@@ -139,7 +117,6 @@ class InputController extends Controller
         );
 
         $kor = array_values(array_filter($kor));
-        // dump($kor);
 
         $links = $crawler->filter('.su-table table tbody tr td')->each(
             function ($node) {
@@ -178,7 +155,6 @@ class InputController extends Controller
             }
         );
 
-        // $image = $crawler->filter('p noscript img')->first()->attr('src');
         $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
         $title = $crawler->filter('h1.title')->first()->text();
         $title = strpos($title, " Episo") ? 
@@ -189,20 +165,11 @@ class InputController extends Controller
         $plot = $plot == "\u{00a0}" ? $crawler->filter('.entry p')->eq(6)->text() : $plot;
         $plot = $plot == "\u{00a0}" ? $crawler->filter('.entry p')->eq(7)->text() : $plot;
 
-        
-
-        $s = $crawler->filter('.entry p')->each(
-            function ($node) {
-                return $node->text();
-            }
-        );
-
         unset($episodes[0], $episodes[1]);
 
         $episodes = array_values(array_filter($episodes));
         $links    = array_values(array_filter($links));
 
-        // dump($links);
         $links = array_map(function ($key, $value) use ($kor) {
             array_unshift($value, $kor[$key] ?? 'zonk');
 
@@ -211,9 +178,8 @@ class InputController extends Controller
         }, array_keys($links), $links);
 
         $list = array_combine($episodes, $links);
-        // dd($list, $links);
 
-        return view('post', compact('title', 'list', 'details', 'image', 'plot', 'ostExist', 'slug', 'ostSlug'));
+        return view('kdrama', compact('title', 'list', 'details', 'image', 'plot', 'ostExist', 'slug', 'ostSlug'));
     }
 
     public function ost()
@@ -235,75 +201,43 @@ class InputController extends Controller
         }
 
         $title = $ost->filter('.entry-title')->first()->text();
-
         $image = $ost->filter('.inner-post-entry p img')->first()->attr('data-lazy-src');
-
         $spans = $ost->filter('.inner-post-entry p span')->each(
             function ($node) {
                     return $node->text();
                 }
         );
-        $spans = array_unique($spans);
-
         $links = $ost->filter('.inner-post-entry p span a')->each(
             function ($node) {
                     return [$node->text() => $node->attr('href')];
                 }
         );
 
-        array_pop($spans);
-        array_pop($spans);
-        // $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
-        // $title = strpos($title, " Episo") ? 
-        //         substr($title, 0, strpos($title, " Episo")) : 
-        //         $title;
+        $spans = array_unique($spans);
 
-        // dd($list, $links);
+        array_pop($spans);
+        array_pop($spans);
 
         return view('ost', compact('title', 'image', 'slug', 'spans', 'links'));
     }
 
-    public function ostIndex(int $page = 1) {
+    public function osts(int $page = 1) {
         $crawler = Goutte::request('GET', "https://kdramamusic.com/?_page={$page}");
-        // dd($crawler);
-
-        // $resources = $crawler->filter('.post')->each(
-        //     function ($node) {
-        //         $title = $node->filter('.title a')->text();
-        //         $title = strpos($title, " Episo") ? 
-        //                 substr($title, 0, strpos($title, " Episo")) : 
-        //                 $title;
-        //         $url = str_replace('https://smallencode.com', '', $node->filter('.title a')->attr('href'));
-        //         $img = $node->filter('.thumb a noscript img')->attr('src');
-        //         // $img = str_replace('-130x130', '', $img);
-
-        //         return [
-        //             'title' => $title, 
-        //             'url' => $url,
-        //             'img' => $img,
-        //         ];
-        //     }
-        // );
-
-        // $path = 'https://kdramamusic.com/wp-content/uploads/2020/02/Tell_Me_What_You_Saw.jpg';
-        // dd($path->getRealPath());
-// $filename = basename($path);
-// if (!file_exists(public_path('images/' . $filename))) {
-//     dump("lewat");
-// Image::make($path)->save(public_path('images/' . $filename));
-// }
-        // dd(public_path('storage/' . 'a.jpg'));
 
         $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
-            $title = $node->filter('.pt-cv-title a')->text();
-            $url = str_replace('https://kdramamusic.com', '/ost', $node->filter('.pt-cv-title a')->attr('href'));
-            $url = str_replace('-ost', '', $url);
-            $img = $node->filter('a img')->attr('src');
+            $title  = $node->filter('.pt-cv-title a')->text();
+            $url    = str_replace('https://kdramamusic.com', '/ost', $node
+                        ->filter('.pt-cv-title a')->attr('href'));
+            $url    = str_replace('-ost', '', $url);
+            $img    = $node->filter('a img')->attr('src');
+
             $filename = basename($img);
+
             if (!file_exists(public_path('images/' . $filename))) {
                 $image = Image::make($img)->fit(130);
                 Image::make($image)->save(public_path('images/' . $filename));
             }
+
             $img = '/images/' . $filename;
 
             return [
@@ -313,14 +247,12 @@ class InputController extends Controller
             ];
         });
 
-        $first = 1;
-        $last = abs(filter_var($crawler->filter('.pagination')->first()->attr('data-totalpages'), FILTER_SANITIZE_NUMBER_INT));
+        $first  = 1;
+        $last   = abs(filter_var($crawler->filter('.pagination')->first()->attr('data-totalpages'), FILTER_SANITIZE_NUMBER_INT));
 
         $prev = $page == $first ? null : '/ost/page/' . (string) ($page - 1);
         $next = $page == $last ? null : '/ost/page/' . (string) ($page + 1);
 
-        // dd($last, $crawler->filter('.last')->first()->attr('href'));
-
-        return view('ost-index', compact('osts', 'first', 'last', 'page', 'prev', 'next'));
+        return view('osts', compact('osts', 'first', 'last', 'page', 'prev', 'next'));
     }
 }
