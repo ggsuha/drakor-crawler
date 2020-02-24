@@ -302,7 +302,7 @@ class InputController extends Controller
             $filename = basename($img);
             if (!file_exists(public_path('storage/' . $filename))) {
                 $image = Image::make($img)->fit(130);
-                Image::make($image)->save('storage/' . $filename);
+                Image::make($image)->save(public_path('storage/' . $filename));
             }
             $img = '/storage/' . $filename;
 
