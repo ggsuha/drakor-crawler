@@ -137,6 +137,7 @@ return [
     'providers' => [
 
         Weidner\Goutte\GoutteServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -209,6 +210,7 @@ return [
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,

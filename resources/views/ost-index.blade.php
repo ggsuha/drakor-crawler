@@ -73,7 +73,7 @@
                                     <!-- <a class="text-link" href="#">Food</a> -->
                                     <h2>
                                         <center>
-                                            <a href="{{ $ost['url'] }}">{{ $ost['title'] }}</a>    
+                                            <a href="{{ url($ost['url']) }}">{{ $ost['title'] }}</a>    
                                         </center>
                                     </h2>
                                 </div>

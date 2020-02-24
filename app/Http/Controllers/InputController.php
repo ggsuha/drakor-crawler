@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Goutte;
+use Image;
 
 class InputController extends Controller
 {
@@ -284,12 +285,26 @@ class InputController extends Controller
         //     }
         // );
 
+        // $path = 'https://kdramamusic.com/wp-content/uploads/2020/02/Tell_Me_What_You_Saw.jpg';
+        // dd($path->getRealPath());
+// $filename = basename($path);
+// if (!file_exists(public_path('images/' . $filename))) {
+//     dump("lewat");
+// Image::make($path)->save(public_path('images/' . $filename));
+// }
+//         dd($filename);
+
         $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
             $title = $node->filter('.pt-cv-title a')->text();
             $url = str_replace('https://kdramamusic.com', '/ost', $node->filter('.pt-cv-title a')->attr('href'));
             $url = str_replace('-ost', '', $url);
             $img = $node->filter('a img')->attr('src');
-            // $img = str_replace('-130x130', '', $img);
+            $filename = basename($img);
+            if (!file_exists(public_path('storage/' . $filename))) {
+                $image = Image::make($img)->fit(130);
+                Image::make($image)->save(public_path('storage/' . $filename));
+            }
+            $img = '/storage/' . $filename;
 
             return [
                 'title' => $title, 
