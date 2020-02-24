@@ -42,19 +42,11 @@
                             </form>
                             <ul class="navbar-nav m-auto">
                                 <li>
-                                    <a class="active" href="{{ url('/') }}">Home</a>
-                                </li>
-                                <li>
-                                    <form class="form-search">
-                                <input type="search" placeholder="Search:"/>
-                            </form>
-                                </li>
-                                <!-- <li>
                                     <a href="{{ url('/') }}">K-Drama</a>
                                 </li>
                                 <li>
-                                    <a href="index-2.html">Drama OST</a>
-                                </li> -->
+                                    <a href="{{ url('/ost') }}">Drama OST</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -76,6 +68,7 @@
                         <div class="post-content">
                             <div class="post-content-text">
                                 <center>
+                                    <br>
                                 <h4>Plot</h4>
                                 <p align="justify">{{ $plot }}</p>
                                 @if ($ostExist)

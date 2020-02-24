@@ -45,7 +45,7 @@
                                 <li>
                                     <a href="{{ url('/') }}">K-Drama</a>
                                 </li>
-                                <li>
+                                 <li>
                                     <a href="{{ url('/ost') }}">Drama OST</a>
                                 </li>
                             </ul>
@@ -60,20 +60,20 @@
             <section class="fresh-section2">
                 <div class="container">
                     <div class="title-section text-center">
-                        <h1>Korean Dramas</h1>
+                        <h1>Drama OST</h1>
                     </div>
                     <div class="fresh-box">
                         <div class="row">
-                        @foreach($resources as $resource)
+                        @foreach($osts as $ost)
                             <div class="col-lg-2 col-md-6">
                                 <div class="news-post standard-post left-align">
                                     <div class="image-holder">
-                                        <center><a href="/kdrama{{ $resource['url'] }}"><img src="{{ $resource['img'] }}" alt=""></a></center>
+                                        <center><a href="{{ $ost['url'] }}"><img src="{{ $ost['img'] }}" alt=""></a></center>
                                     </div>
-                                    {{-- <a class="text-link" href="#">Food</a> --}}
+                                    <!-- <a class="text-link" href="#">Food</a> -->
                                     <h2>
                                         <center>
-                                            <a href="/kdrama{{ $resource['url'] }}">{{ $resource['title'] }}</a>    
+                                            <a href="{{ $ost['url'] }}">{{ $ost['title'] }}</a>    
                                         </center>
                                     </h2>
                                 </div>
@@ -82,11 +82,11 @@
                         </div>
                         <div class="pagination-box">
                             <ul class="pagination-list">
-                                {{-- <li><a href="{{ url($page == 1 ? '/#' : '/') }}"><<</a></li> --}}
+                                <!-- <li><a href="{{ url($page == 1 ? '/#' : '/') }}"><<</a></li> -->
                                 <li><a href="{{ url($prev ?? '#') }}"><</a></li>
                                 <li><a class="active" >{{ $page }}</a></li>
                                 <li><a href="{{ url($next ?? '/#') }}">></a></li>
-                                {{-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> --}}
+                                <!-- <li><a href="{{ url('/page/' . $last) }}">>></a></li> -->
                             </ul>
                         </div>
                         <div class="advertise-box">

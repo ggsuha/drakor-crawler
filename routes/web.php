@@ -12,11 +12,13 @@
 */
 
 
-Route::get('/', 'InputController@index');
-Route::get('/page/{page}', 'InputController@index');
-Route::get('/{slug}', 'InputController@tes');
+Route::get('/', function() {
+    return redirect('/kdrama');
+});
+Route::get('/kdrama', 'InputController@index');
+Route::get('/kdrama/page/{page}', 'InputController@index');
+Route::get('/kdrama/{slug}', 'InputController@tes');
 Route::get('/ost/{slug}', 'InputController@ost');
-
-Route::get('post', 'UserController@store')->name('post');
-Route::post('ckeditor/image_upload', 'InputController@upload')->name('upload');
+Route::get('/ost/', 'InputController@ostIndex');
+Route::get('/ost/page/{page}', 'InputController@ostindex');
 

@@ -82,27 +82,17 @@ class InputController extends Controller
         $first = 1;
         $last = abs(filter_var($crawler->filter('.last')->first()->attr('href'), FILTER_SANITIZE_NUMBER_INT));
 
-        $prev = $page == $first ? null : '/page/' . (string) ($page - 1);
-        $next = $page == $last ? null : '/page/' . (string) ($page + 1);
+        $prev = $page == $first ? null : 'kdrama/page/' . (string) ($page - 1);
+        $next = $page == $last ? null : 'kdrama/page/' . (string) ($page + 1);
 
         // dd($last, $crawler->filter('.last')->first()->attr('href'));
 
         return view('welcome', compact('resources', 'first', 'last', 'page', 'prev', 'next'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function tes()
     {
-        $slug = str_replace('download-drama-korea-','', request()->path());
+        $slug = str_replace('kdrama/download-drama-korea-','', request()->path());
 
         $ostSlug = self::OST_LIST[$slug] ?? $slug;;
 
@@ -272,88 +262,50 @@ class InputController extends Controller
         return view('ost', compact('title', 'image', 'slug', 'spans', 'links'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function ostIndex(int $page = 1) {
+        $crawler = Goutte::request('GET', "https://kdramamusic.com/?_page={$page}");
+        // dd($crawler);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        // $resources = $crawler->filter('.post')->each(
+        //     function ($node) {
+        //         $title = $node->filter('.title a')->text();
+        //         $title = strpos($title, " Episo") ? 
+        //                 substr($title, 0, strpos($title, " Episo")) : 
+        //                 $title;
+        //         $url = str_replace('https://smallencode.com', '', $node->filter('.title a')->attr('href'));
+        //         $img = $node->filter('.thumb a noscript img')->attr('src');
+        //         // $img = str_replace('-130x130', '', $img);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        //         return [
+        //             'title' => $title, 
+        //             'url' => $url,
+        //             'img' => $img,
+        //         ];
+        //     }
+        // );
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
+            $title = $node->filter('.pt-cv-title a')->text();
+            $url = str_replace('https://kdramamusic.com', '/ost', $node->filter('.pt-cv-title a')->attr('href'));
+            $url = str_replace('-ost', '', $url);
+            $img = $node->filter('a img')->attr('src');
+            // $img = str_replace('-130x130', '', $img);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+            return [
+                'title' => $title, 
+                'url' => $url,
+                'img' => $img,
+            ];
+        });
 
-    public function upload(Request $request)
-    {
-        if($request->hasFile('upload')) {
-            //get filename with extension
-            $filenamewithextension = $request->file('upload')->getClientOriginalName();
-      
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-      
-            //get file extension
-            $extension = $request->file('upload')->getClientOriginalExtension();
-      
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-      
-            //Upload File
-            $request->file('upload')->storeAs('public/uploads', $filenametostore);
- 
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/uploads/'.$filenametostore); 
-            $msg = 'Image successfully uploaded'; 
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-             
-            // Render HTML output 
-            @header('Content-type: text/html; charset=utf-8'); 
-            echo $re;
-        }
+        $first = 1;
+        $last = abs(filter_var($crawler->filter('.pagination')->first()->attr('data-totalpages'), FILTER_SANITIZE_NUMBER_INT));
+
+        $prev = $page == $first ? null : '/ost/page/' . (string) ($page - 1);
+        $next = $page == $last ? null : '/ost/page/' . (string) ($page + 1);
+
+        // dd($last, $crawler->filter('.last')->first()->attr('href'));
+
+        return view('ost-index', compact('osts', 'first', 'last', 'page', 'prev', 'next'));
     }
 }
