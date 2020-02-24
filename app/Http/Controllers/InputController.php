@@ -300,11 +300,11 @@ class InputController extends Controller
             $url = str_replace('-ost', '', $url);
             $img = $node->filter('a img')->attr('src');
             $filename = basename($img);
-            if (!file_exists(public_path('images/thumbnail/' . $filename))) {
+            if (!file_exists(public_path('storage/' . $filename))) {
                 $image = Image::make($img)->fit(130);
-                Image::make($image)->save(public_path('image/thumbnail/' . $filename));
+                Image::make($image)->save('storage/' . $filename);
             }
-            $img = '/image/thumbnail/' . $filename;
+            $img = '/storage/' . $filename;
 
             return [
                 'title' => $title, 
