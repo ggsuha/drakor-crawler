@@ -292,7 +292,7 @@ class InputController extends Controller
 //     dump("lewat");
 // Image::make($path)->save(public_path('images/' . $filename));
 // }
-        dd(public_path('storage/' . 'a.jpg'));
+        // dd(public_path('storage/' . 'a.jpg'));
 
         $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
             $title = $node->filter('.pt-cv-title a')->text();
