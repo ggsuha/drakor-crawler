@@ -292,7 +292,7 @@ class InputController extends Controller
 //     dump("lewat");
 // Image::make($path)->save(public_path('images/' . $filename));
 // }
-//         dd($filename);
+        dd(public_path('storage/' . 'a.jpg'));
 
         $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
             $title = $node->filter('.pt-cv-title a')->text();
@@ -300,11 +300,11 @@ class InputController extends Controller
             $url = str_replace('-ost', '', $url);
             $img = $node->filter('a img')->attr('src');
             $filename = basename($img);
-            if (!file_exists(public_path('storage/' . $filename))) {
+            if (!file_exists(public_path('images/' . $filename))) {
                 $image = Image::make($img)->fit(130);
-                Image::make($image)->save(public_path('storage/' . $filename));
+                Image::make($image)->save(public_path('images/' . $filename));
             }
-            $img = '/storage/' . $filename;
+            $img = '/images/' . $filename;
 
             return [
                 'title' => $title, 
