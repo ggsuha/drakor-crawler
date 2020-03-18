@@ -46,15 +46,15 @@ class InputController extends Controller
         $resources = $crawler->filter('.post')->each(
             function ($node) {
                 $title  = $node->filter('.title a')->text();
-                $title  = strpos($title, " Episo") ? 
-                            substr($title, 0, strpos($title, " Episo")) : 
+                $title  = strpos($title, " Episo") ?
+                            substr($title, 0, strpos($title, " Episo")) :
                             $title;
                 $url    = str_replace('https://smallencode.com', '', $node
                             ->filter('.title a')->attr('href'));
                 $img    = $node->filter('.thumb a noscript img')->attr('src');
 
                 return [
-                    'title' => $title, 
+                    'title' => $title,
                     'url' => $url,
                     'img' => $img,
                 ];
@@ -102,13 +102,13 @@ class InputController extends Controller
 
                     if ($node->filter('a')->count() < 25) {
                         return 'zonk';
-                    } 
+                    }
 
-                    for ($i=0; $i < $count ; $i++) { 
+                    for ($i=0; $i < $count ; $i++) {
                         array_push($list, [
                             'server' => self::SERVERS[$node->filter('a')->eq($i)->text()] ?? $node->filter('a')->eq($i)->text(),
                             'link' => $node->filter('a')->eq($i)->attr('href')
-                        ]); 
+                        ]);
                     }
 
                     return $list;
@@ -157,8 +157,8 @@ class InputController extends Controller
 
         $image = $crawler->filterXpath('//meta[@property="og:image"]')->attr('content');
         $title = $crawler->filter('h1.title')->first()->text();
-        $title = strpos($title, " Episo") ? 
-                substr($title, 0, strpos($title, " Episo")) : 
+        $title = strpos($title, " Episo") ?
+                substr($title, 0, strpos($title, " Episo")) :
                 $title;
 
         $plot = $crawler->filter('.entry p')->eq(5)->text();
@@ -241,7 +241,7 @@ class InputController extends Controller
             $img = '/images/' . $filename;
 
             return [
-                'title' => $title, 
+                'title' => $title,
                 'url' => $url,
                 'img' => $img,
             ];
