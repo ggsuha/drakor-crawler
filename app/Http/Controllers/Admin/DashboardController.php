@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,13 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
+        $breadcrumb = request()->segment(2);
 
-    public function logout()
-    {
-        Auth::logout();
-
-        return redirect('/');
+        return view('ruler.dashboard', compact('breadcrumb'));
     }
 }

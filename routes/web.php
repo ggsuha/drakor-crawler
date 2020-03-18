@@ -30,16 +30,23 @@ Auth::routes([
   'verify' => false,
 ]);
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
-    Route::get('/', function() {
-        return redirect('/admin/dasboard');
-    });
-    Route::get('/dasboard', 'HomeController@index');
-    Route::get('/artikel', 'ArticleController@index');
-    Route::get('/artikel/baru', 'ArticleController@create');
-    Route::post('/artikel/store', 'ArticleController@store')->name('store');
-
-    Route::post('/image/upload', 'CkEditorController@upload')->name('upload');
-
-    Route::get('/logout', 'HomeController@logout')->name('out');
+Route::get('admin', function () {
+    return redirect()->to('admin/dashboard');
 });
+
+Route::get('/admin/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/admin/login', 'Auth\LoginController@login')->name('login');
+
+// Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+//     Route::get('/', function() {
+//         return redirect('/admin/dasboard');
+//     });
+//     Route::get('/dasboard', 'HomeController@index');
+//     Route::get('/artikel', 'ArticleController@index');
+//     Route::get('/artikel/baru', 'ArticleController@create');
+//     Route::post('/artikel/store', 'ArticleController@store')->name('store');
+
+//     Route::post('/image/upload', 'CkEditorController@upload')->name('upload');
+
+//     Route::get('/logout', 'HomeController@logout')->name('out');
+// });
