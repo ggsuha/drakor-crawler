@@ -88,8 +88,8 @@ class InputController extends Controller
             abort(404);
         }
 
-        $crawler2 = Goutte::request('GET', 'https://kordramas.com/' . $kordrama);
-        $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug . '-ost');
+        $crawler2 = Goutte::request('GET', 'https://kordramas.net/' . $kordrama);
+        $ost = Goutte::request('GET', 'https://kdramaost.com/' . $ostSlug . '-ost');
 
         $ostExist = $ost->filter('.entry-title')->count() ?? null;
 
@@ -191,7 +191,7 @@ class InputController extends Controller
         $ostSlug = $slug . '-ost';
 
         try {
-            $ost = Goutte::request('GET', 'https://kdramamusic.com/' . $ostSlug);
+            $ost = Goutte::request('GET', 'https://kdramaost.com/' . $ostSlug);
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             abort(404);
         }
@@ -222,11 +222,11 @@ class InputController extends Controller
     }
 
     public function osts(int $page = 1) {
-        $crawler = Goutte::request('GET', "https://kdramamusic.com/?_page={$page}");
+        $crawler = Goutte::request('GET', "https://kdramaost.com/?_page={$page}");
 
         $osts = $crawler->filter('.pt-cv-ifield ')->each(function ($node) {
             $title  = $node->filter('.pt-cv-title a')->text();
-            $url    = str_replace('https://kdramamusic.com', '/ost', $node
+            $url    = str_replace('https://kdramaost.com', '/ost', $node
                         ->filter('.pt-cv-title a')->attr('href'));
             $url    = str_replace('-ost', '', $url);
             $img    = $node->filter('a img')->attr('src');
