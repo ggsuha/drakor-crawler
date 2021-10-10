@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Goutte;
 use Image;
 
@@ -41,7 +40,7 @@ class InputController extends Controller
 
     public function kdramas(int $page = 1)
     {
-        $crawler = Goutte::request('GET', "https://smallencode.com/category/k-drama/page/{$page}");
+        $crawler = Goutte::request('GET', "https://smallencode.me/category/k-drama/page/{$page}");
 
         $resources = $crawler->filter('.post')->each(
             function ($node) {
@@ -49,7 +48,7 @@ class InputController extends Controller
                 $title  = strpos($title, " Episo") ?
                             substr($title, 0, strpos($title, " Episo")) :
                             $title;
-                $url    = str_replace('https://smallencode.com', '', $node
+                $url    = str_replace('https://smallencode.me', '', $node
                             ->filter('.title a')->attr('href'));
                 $img    = $node->filter('.thumb a noscript img')->attr('src');
 
@@ -76,10 +75,10 @@ class InputController extends Controller
 
         $ostSlug    = self::OST_LIST[$slug] ?? $slug;
         $slug       = self::DRAMA_LIST[$slug] ?? $slug;
-        $kordrama   = $slug . '-subtitle-indonesia';
+        // $kordrama   = $slug . '-subtitle-indonesia';
 
         try {
-            $crawler = Goutte::request('GET', 'https://smallencode.com/' . request()->path());
+            $crawler = Goutte::request('GET', 'https://smallencode.me/' . request()->path());
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             abort(500);
         }
@@ -88,35 +87,35 @@ class InputController extends Controller
             abort(404);
         }
 
-        $crawler2 = Goutte::request('GET', 'https://kordramas.net/' . $kordrama);
+        // $crawler2 = Goutte::request('GET', 'https://kordramas.net/' . $kordrama);
         $ost = Goutte::request('GET', 'https://kdramaost.com/' . $ostSlug . '-ost');
 
         $ostExist = $ost->filter('.entry-title')->count() ?? null;
 
-        $kor = $crawler2->filter('.entry-content p')->each(
-            function ($node) {
-                if (strpos($node->text(), '|')) {
-                    $list = [];
-                    $b = substr($node->text(), 0, strpos($node->text(), "540"));
-                    $count = substr_count($b, '|');
+        // $kor = $crawler2->filter('.entry-content p')->each(
+        //     function ($node) {
+        //         if (strpos($node->text(), '|')) {
+        //             $list = [];
+        //             $b = substr($node->text(), 0, strpos($node->text(), "540"));
+        //             $count = substr_count($b, '|');
 
-                    if ($node->filter('a')->count() < 25) {
-                        return 'zonk';
-                    }
+        //             if ($node->filter('a')->count() < 25) {
+        //                 return 'zonk';
+        //             }
 
-                    for ($i=0; $i < $count ; $i++) {
-                        array_push($list, [
-                            'server' => self::SERVERS[$node->filter('a')->eq($i)->text()] ?? $node->filter('a')->eq($i)->text(),
-                            'link' => $node->filter('a')->eq($i)->attr('href')
-                        ]);
-                    }
+        //             for ($i=0; $i < $count ; $i++) {
+        //                 array_push($list, [
+        //                     'server' => self::SERVERS[$node->filter('a')->eq($i)->text()] ?? $node->filter('a')->eq($i)->text(),
+        //                     'link' => $node->filter('a')->eq($i)->attr('href')
+        //                 ]);
+        //             }
 
-                    return $list;
-                }
-            }
-        );
+        //             return $list;
+        //         }
+        //     }
+        // );
 
-        $kor = array_values(array_filter($kor));
+        // $kor = array_values(array_filter($kor));
 
         $links = $crawler->filter('.su-table table tbody tr td')->each(
             function ($node) {
@@ -170,12 +169,12 @@ class InputController extends Controller
         $episodes = array_values(array_filter($episodes));
         $links    = array_values(array_filter($links));
 
-        $links = array_map(function ($key, $value) use ($kor) {
-            array_unshift($value, $kor[$key] ?? 'zonk');
+        // $links = array_map(function ($key, $value) use ($kor) {
+        //     array_unshift($value, $kor[$key] ?? 'zonk');
 
-            return $value;
+        //     return $value;
 
-        }, array_keys($links), $links);
+        // }, array_keys($links), $links);
 
         $list = array_combine($episodes, $links);
 

@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="{{ asset('css/fonts/cssb2c8.css?family=Roboto:300,400,400i,500,500i,700,700i,900&amp;display=swap') }}" rel="stylesheet">
-        
+
         <link rel="stylesheet" type="text/css" href="{{ asset('css/mite-assets.min.css?v=20200221') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css?v=20200221') }}">
 
@@ -44,9 +44,9 @@
                                 <li>
                                     <a href="{{ url('/') }}">K-Drama</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="{{ url('/ost') }}">Drama OST</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
             </header>
             <!-- End Header -->
 
-<!-- blog section 
+<!-- blog section
             ================================================== -->
         <section class="blog-section">
             <div class="container">
@@ -87,7 +87,7 @@
                                             </td>
                                             <td>
                                                 <span>
-                                                    <strong><a href="http://smalllencode.com">Smallencode</a> & <a href="http://kordramas.com">Kordramas</a></strong>
+                                                    <strong><a href="http://smalllencode.me">Smallencode</a> & <a href="http://kordramas.com">Kordramas</a></strong>
                                                 </span>
                                             </td>
                                         </tr>
@@ -97,11 +97,10 @@
                                     <tbody>
                                         @foreach($list as $key => $episode)
                                         <tr>
-                                            <!-- <td>{{ $key }}</td> -->
                                             <td>
                                                 <center><strong class="episode">Episode {{ $key }}</strong></center>
                                                 <center>
-                                                360p: 
+                                                {{-- 360p:
                                                 @if(is_string($episode[0]))
                                                 belum tersedia
                                                 @else
@@ -109,17 +108,17 @@
                                                     <a href="{{ $server['link'] }}">{{ $server['server'] }}</a> {{ $loop->last ? '' : '|' }}
                                                     @endforeach
                                                 @endif
-                                                <br>
-                                                480p: 
-                                                @foreach($episode[1] as $server)
+                                                <br> --}}
+                                                480p:
+                                                @foreach($episode[0] as $server)
                                                 <a href="{{ $server['link'] }}">{{ $server['server'] }}</a> {{ $loop->last ? '' : '|' }}
                                                 @endforeach
                                                 <br>
-                                                540p: @foreach($episode[2] as $server)
+                                                540p: @foreach($episode[1] as $server)
                                                 <a href="{{ $server['link'] }}">{{ $server['server'] }}</a> {{ $loop->last ? '' : '|' }}
                                                 @endforeach
                                                 <br>
-                                                720p: @foreach($episode[3] as $server)
+                                                720p: @foreach($episode[2] as $server)
                                                 <a href="{{ $server['link'] }}">{{ $server['server'] }}</a> {{ $loop->last ? '' : '|' }}
                                                 @endforeach
                                                 </center>
@@ -129,7 +128,7 @@
                                     </tbody>
                                 </table>
                                 </center>
-                            </div>  
+                            </div>
                         </div>
                     </div>
 
@@ -141,7 +140,7 @@
         </section>
         <!-- End blog section -->
 
- <!-- footer 
+ <!-- footer
                 ================================================== -->
             <footer class="dark-style">
                 <div class="container">
@@ -166,11 +165,11 @@
         <div class="preloader">
             <img alt="" src="{{ asset('images/loader.gif?v=20200221') }}">
         </div>
-        
+
         <script src="{{ asset('js/mite-plugins.min.js?v=20200221') }}"></script>
         <script src="{{ asset('js/popper.js?v=20200221') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js?v=20200221') }}"></script>
         <script src="{{ asset('js/script.js?v=20200221') }}"></script>
-        
+
     </body>
 </html>

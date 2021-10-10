@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="{{ asset('css/fonts/cssb2c8.css?family=Roboto:300,400,400i,500,500i,700,700i,900&amp;display=swap') }}" rel="stylesheet">
-        
+
         <link rel="stylesheet" type="text/css" href="{{ asset('css/mite-assets.min.css?v=20200221') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css?v=20200221') }}">
 
@@ -45,9 +45,9 @@
                                 <li>
                                     <a href="{{ url('/') }}">K-Drama</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="{{ url('/ost') }}">Drama OST</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
             </header>
             <!-- End Header -->
 
-            <!-- fresh-section2 
+            <!-- fresh-section2
                 ================================================== -->
             <section class="fresh-section2">
                 <div class="container">
@@ -73,7 +73,7 @@
                                     {{-- <a class="text-link" href="#">Food</a> --}}
                                     <h2>
                                         <center>
-                                            <a href="/kdrama{{ $resource['url'] }}">{{ $resource['title'] }}</a>    
+                                            <a href="/kdrama{{ $resource['url'] }}">{{ $resource['title'] }}</a>
                                         </center>
                                     </h2>
                                 </div>
@@ -97,7 +97,7 @@
             </section>
             <!-- End fresh section -->
 
-            <!-- footer 
+            <!-- footer
                 ================================================== -->
             <footer class="dark-style">
                 <div class="container">
@@ -128,11 +128,11 @@
         <div class="preloader">
             <img alt="" src="{{ asset('images/loader.gif?v=20200221') }}">
         </div>
-        
+
         <script src="{{ asset('js/mite-plugins.min.js?v=20200221') }}"></script>
         <script src="{{ asset('js/popper.js?v=20200221') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js?v=20200221') }}"></script>
         <script src="{{ asset('js/script.js?v=20200221') }}"></script>
-        
+
     </body>
 </html>
